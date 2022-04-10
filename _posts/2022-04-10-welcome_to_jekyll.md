@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "This is the featured post!"
-date: 2022-04-10 20:50:57 +0200
+title: "Welcome to Jekyll!"
+date: 2022-04-10 20:49:57 +0200
 categories: jekyll update
 ---
 

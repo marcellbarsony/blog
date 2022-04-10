@@ -1,4 +1,5 @@
 ---
+layout: home
 ---
 
 <!DOCTYPE html>
@@ -25,15 +26,19 @@
     {% endif %} {% endfor %}
 
     <h2>Config.yml</h2>
+
     <p>Twitter username: {{site.twitter_username}}</p>
 
     <h2>Featured post</h2>
+
     {% for post in site.posts limit:1 %} {{post.title}} {% endfor %}
 
     <h2>All other posts</h2>
+
     {% for post in site.posts offset:1 %} {{post.title}} {% endfor %}
 
     <h2>Post with link</h2>
+
     {% for post in site.posts %}
     <a href="{{post.url | relative_url }}">{{post.title}}</a>
     {% endfor %}
