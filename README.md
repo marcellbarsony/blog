@@ -60,9 +60,56 @@ Run `jekyll new . --force` inside the repository folder to initialize a new proj
 jekyll new . --force
 ```
 
+### Live Jekyll server
+
+Create a live Jekyll server
+
+```
+bundle exec jekyll serve --livereload
+```
+
 ### config.yml
 
+Remove the following line to switch to a Regular theme from a Gem-based theme.
+
+```
+theme: minima
+```
+
+The `_config.yml` file cannot be changed while live reload is running.
+
 ### Gemfile
+
+To use GitHub Pages, comment the following line and uncomment the line after.
+
+```
+gem "jekyll", "~> 4.2.2"
+```
+
+```
+gem "github-pages", group: :jekyll_plugins
+```
+
+Run the following command to apply the changes.
+
+```
+bundle update github-pages
+bundle install
+```
+
+Remove the following line to switch to a Regular theme from a Gem-based theme.
+
+```
+gem "minima", "~> 2.5"
+```
+
+Run the following command to apply the changes.
+
+```
+bundle update
+```
+
+The `Gemfile` file cannot be changed while live reload is running.
 
 ## Troubleshooting
 
