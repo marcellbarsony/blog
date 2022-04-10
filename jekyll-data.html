@@ -10,11 +10,32 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>Header1</h1>
-    <h2>Header2</h2>
+    <h1>Jekyll data</h1>
+
+    <h2>Post data</h2>
     {% for post in site.posts %}
     <p>Post title: {{post.title}}</p>
     <p>Post date: {{post.date}}</p>
+    {% endfor %}
+
+    <h2>Page data</h2>
+
+    {% for page in site.pages %} {% if page.title %}
+    <p>Page title: {{page.title}}</p>
+    {% endif %} {% endfor %}
+
+    <h2>Config.yml</h2>
+    <p>Twitter username: {{site.twitter_username}}</p>
+
+    <h2>Featured post</h2>
+    {% for post in site.posts limit:1 %} {{post.title}} {% endfor %}
+
+    <h2>All other posts</h2>
+    {% for post in site.posts offset:1 %} {{post.title}} {% endfor %}
+
+    <h2>Post with link</h2>
+    {% for post in site.posts %}
+    <a href="{{post.url | relative_url }}">{{post.title}}</a>
     {% endfor %}
   </body>
 </html>
