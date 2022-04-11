@@ -102,13 +102,8 @@ a {
   color: $brand-color;
   text-decoration: none;
 
-  &:visited {
-    color: darken($brand-color, 15%);
-  }
-
   &:hover {
     color: darken($brand-color, 15%);
-    /* text-decoration: underline; */
   }
 
   .social-media-list &:hover {
