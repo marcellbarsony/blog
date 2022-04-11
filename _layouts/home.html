@@ -8,7 +8,8 @@ layout: default
   {%- endif -%}
     {{ content }}
   {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+    <!-- Removed page title 
+    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2> -->
   <ul class="post-list">
     {%- for post in site.posts -%}
       <!-- Featured Image -->
@@ -30,7 +31,7 @@ layout: default
     </li>
       <!-- Post Excerpt -->
     <li>
-      {%- if site.show_excerpts -%}
+      {%- if post.excerpt -%}
         {{ post.excerpt }}
       {%- endif -%}
     </li>

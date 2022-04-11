@@ -202,6 +202,12 @@
   margin-bottom: $spacing-unit;
 }
 
+.post-featured-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
 .post-title {
   @include relative-font-size(2.625);
   letter-spacing: -1px;
@@ -240,14 +246,8 @@
   }
 }
 
-.featured-image-post {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-}
-
 .blog-roll-image {
   width: 110%;
-  height: 400px;
+  height: 200px;
   object-fit: cover;
 }
