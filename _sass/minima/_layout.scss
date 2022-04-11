@@ -184,6 +184,13 @@
   list-style: none;
 }
 
+.post-link {
+  // Post Title
+  display: block;
+  @include relative-font-size(1.5);
+  margin-bottom: -10px;
+}
+
 .post-meta {
   // Post Date
   font-size: $small-font-size;
@@ -191,11 +198,11 @@
   margin-bottom: 10px;
 }
 
-.post-link {
-  // Post Title
-  display: block;
-  @include relative-font-size(1.5);
-  margin-bottom: -10px;
+.post-excerpt {
+  // Post Excerpt
+  font-size: $base-font-size;
+  color: $text-color;
+  margin-bottom: 10px;
 }
 
 /* Posts */

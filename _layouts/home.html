@@ -15,10 +15,10 @@ layout: default
       <!-- Featured Image -->
     <li>
       {% if post.image %}
-      <img src="{{- post.image | relative_url -}}" alt="" class="blog-roll-image">
+        <img src="{{- post.image | relative_url -}}" alt="" class="blog-roll-image">
       {% else %}
       {% assign postImage = "/assets/images/default.jpg" %}
-      <img src="{{- postImage | relative_url -}}" alt="" class="blog-roll-image">
+        <img src="{{- postImage | relative_url -}}" alt="" class="blog-roll-image">
       {% endif %}
     </li>
       <!-- Post Title & Link -->
@@ -31,15 +31,18 @@ layout: default
     </li>
       <!-- Date -->
     <li>
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y"
-      -%}
-      <span class="post-meta">{{ post.date | date: date_format }}</span>
-      </h3>
+      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+      <!-- <span class="post-meta">
+        {{ post.date | date: date_format }}
+      </span> -->
+        <a class="post-meta" href="{{ post.url | relative_url }}">
+        {{ post.date | date: date_format }}
+      </a>
     </li>
       <!-- Post Excerpt -->
     <li>
       {%- if post.excerpt -%}
-        {{ post.excerpt }}
+        <p class="post-excerpt">{{ post.excerpt }}</p>
       {%- endif -%}
     </li>
     {%- endfor -%}
