@@ -8,6 +8,7 @@
   position: relative;
 }
 
+/* Title */ 
 .site-title {
   @include relative-font-size(1.625);
   font-weight: 300;
@@ -18,6 +19,7 @@
   float: left;
 }
 
+/* Navigation */
 .site-nav {
   float: right;
   line-height: $base-line-height * $base-font-size * 2.25;
@@ -89,7 +91,7 @@
       &:not(:last-child) {
         margin-right: 0;
       }
-      margin-left: 20px;
+      margin-left: 100px;
     }
   }
 }
