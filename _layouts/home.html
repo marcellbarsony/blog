@@ -40,14 +40,20 @@ layout: default
       </a>
     </li>
     <!-- Tag -->
+<!--    <span>[
+      {% for tag in page.tags %}
+        {% capture tag_name %}{{ tag }}{% endcapture %}
+          <a href="/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+      {% endfor %}
+    ]</span> -->
+    <!-- End Tag -->
+    <!-- Tag -->
     <li>
-      <span>[
         {% if post.tags.size > 0 %}
           Tag{% if post.tags.size > 1 %}s{% endif %}:
-          {{ post.tags | sort | join: ", " }}
+          <a href=""><code>{{ post.tags | sort | join: " " }}</code></a>
         {% endif %}
-      ]</span>
-    </li>
+    </li> 
       <!-- Post Excerpt -->
     <li>
       {%- if post.excerpt -%}
