@@ -205,6 +205,7 @@
 
 /* Posts */
 .post-header {
+  margin-top: $spacing-unit;
   margin-bottom: $spacing-unit;
 }
 
@@ -215,9 +216,10 @@
 }
 
 .post-title {
-  @include relative-font-size(2.625);
+  @include relative-font-size(2);
   letter-spacing: -1px;
   line-height: 1;
+  margin-top: $spacing-unit;
 
   @include media-query($on-laptop) {
     @include relative-font-size(2.25);
