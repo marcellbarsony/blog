@@ -8,7 +8,7 @@ layout: default
   {%- endif -%}
     {{ content }}
   {%- if site.posts.size > 0 -%}
-    <!-- Removed page title 
+    <!-- Removed page title
     <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2> -->
   <ul class="post-list">
     {%- for post in site.posts -%}
@@ -39,6 +39,15 @@ layout: default
         {{ post.date | date: date_format }}
       </a>
     </li>
+    <!-- Tag -->
+    <li>
+      <span>[
+        {% if post.tags.size > 0 %}
+          Tag{% if post.tags.size > 1 %}s{% endif %}:
+          {{ post.tags | sort | join: ", " }}
+        {% endif %}
+      ]</span>
+    </li>
       <!-- Post Excerpt -->
     <li>
       {%- if post.excerpt -%}
@@ -53,4 +62,3 @@ layout: default
 
   {%- endif -%}
 </div>
-

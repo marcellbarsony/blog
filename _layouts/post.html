@@ -13,7 +13,7 @@
     <div class="wrapper">
 
       <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-      
+
         <header class="post-header">
           <!-- Featured Image -->
           {%- if page.image -%}
@@ -37,21 +37,27 @@
             {%- if page.author -%}
                 <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
               {%- endif -%}
-            <!-- Category -->
-            <p>{{post.category}}</p>
+            <!-- Tag -->
+            <span>[
+              {% for tag in page.tags %}
+                {% capture tag_name %}{{ tag }}{% endcapture %}
+                <a href="/tag/{{ tag_name }}"><code class="highligher-rouge"><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+              {% endfor %}
+            ]</span>
+            <!-- End Tag -->
           </p>
         </header>
-        
+
         <!-- Content -->
         <div class="post-content e-content" itemprop="articleBody">
           {{ content }}
         </div>
-        
+
         <!-- Disqus -->
         {%- if site.disqus.shortname -%}
           {%- include disqus_comments.html -%}
         {%- endif -%}
-        
+
         <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
       </article>
     </div>
