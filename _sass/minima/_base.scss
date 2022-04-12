@@ -103,11 +103,11 @@ h6 {
 
 /* Links */
 a {
-  color: $brand-color;
+  color: $brand-color-alternate;
   text-decoration: none;
 
   &:hover {
-    color: darken($brand-color, 15%);
+    color: darken($brand-color-alternate, 15%);
   }
 
   .social-media-list &:hover {
@@ -123,7 +123,7 @@ a {
 blockquote {
   color: $grey-color;
   border-left: 4px solid $grey-color-light;
-  border-left-color: $grey-color;
+  border-left-color: $brand-color;
   font-style: italic;
   letter-spacing: -1px;
   margin-top: $spacing-unit * 2;

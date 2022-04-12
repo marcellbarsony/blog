@@ -1,5 +1,6 @@
-/* Site header */
+/* Site */
 .site-header {
+  // Site Header
   border-top: 5px solid $grey-color-dark;
   border-bottom: 1px solid $grey-color-light;
   min-height: $spacing-unit * 1.865;
@@ -8,19 +9,19 @@
   position: relative;
 }
 
-/* Title */ 
 .site-title {
+  // Site Title
   @include relative-font-size(1.625);
   font-weight: 300;
-  color: $grey-color;
+  color: $brand-color;
   line-height: $base-line-height * $base-font-size * 2.25;
   letter-spacing: -1px;
   margin-bottom: 0;
   float: left;
 }
 
-/* Navigation */
 .site-nav {
+  // Site Navigation
   float: right;
   line-height: $base-line-height * $base-font-size * 2.25;
 
@@ -185,6 +186,7 @@
 .post-link {
   // Post Title
   display: block;
+  color: $brand-color;
   @include relative-font-size(1.5);
   margin-bottom: -10px;
 }
@@ -230,6 +232,7 @@
   margin-bottom: $spacing-unit;
 
   h2 {
+    color: $brand-color;
     @include relative-font-size(2);
 
     @include media-query($on-laptop) {
@@ -238,6 +241,7 @@
   }
 
   h3 {
+    color: $brand-color;
     @include relative-font-size(1.625);
 
     @include media-query($on-laptop) {
@@ -246,6 +250,7 @@
   }
 
   h4 {
+    color: $brand-color;
     @include relative-font-size(1.25);
 
     @include media-query($on-laptop) {
