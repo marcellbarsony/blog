@@ -92,22 +92,18 @@ li {
 */
 
 /* Headings */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-weight: $base-font-weight;
+  color: $brand-color;
 }
 
 /* Links */
 a {
-  color: $brand-color-alternate;
+  color: $brand-color;
   text-decoration: none;
 
   &:hover {
-    color: darken($brand-color-alternate, 15%);
+    color: darken($brand-color, 10%);
   }
 
   .social-media-list &:hover {
@@ -137,8 +133,7 @@ blockquote {
 }
 
 /* Code formatting */
-pre,
-code {
+pre, code {
   @include relative-font-size(0.9375);
   border: 1px solid $grey-color;
   border-radius: 3px;
@@ -195,6 +190,7 @@ pre {
   vertical-align: text-top;
 }
 
+/* Social Media */
 .social-media-list {
   li + li {
     padding-top: 5px;
