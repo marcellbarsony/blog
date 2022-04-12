@@ -29,31 +29,21 @@ layout: default
         </a>
       </h3>
     </li>
+      <!-- Tag -->
+    <li>
+      {% if post.tags.size > 0 %}
+        {% for tag in post.tags %}
+          <a href=""><code><nobr>{{ tag }}</nobr></code>&nbsp;</a>
+        {% endfor %}
+      {% endif %}
+    </li>
       <!-- Date -->
     <li>
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      <!-- <span class="post-meta">
-        {{ post.date | date: date_format }}
-      </span> -->
-        <a class="post-meta" href="{{ post.url | relative_url }}">
+      <a class="post-meta" href="{{ post.url | relative_url }}">
         {{ post.date | date: date_format }}
       </a>
     </li>
-    <!-- Tag -->
-<!--    <span>[
-      {% for tag in page.tags %}
-        {% capture tag_name %}{{ tag }}{% endcapture %}
-          <a href="/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
-      {% endfor %}
-    ]</span> -->
-    <!-- End Tag -->
-    <!-- Tag -->
-    <li>
-        {% if post.tags.size > 0 %}
-          Tag{% if post.tags.size > 1 %}s{% endif %}:
-          <a href=""><code>{{ post.tags | sort | join: " " }}</code></a>
-        {% endif %}
-    </li> 
       <!-- Post Excerpt -->
     <li>
       {%- if post.excerpt -%}
