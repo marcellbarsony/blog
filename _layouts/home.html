@@ -15,10 +15,10 @@ layout: default
       <!-- Featured Image -->
     <li>
       {% if post.image %}
-        <img src="{{- post.image | relative_url -}}" alt="" class="blog-roll-image">
+        <a href="{{ post.url | relative_url }}"><img src="{{- post.image | relative_url -}}" alt="" class="blog-roll-image"></a>
       {% else %}
       {% assign postImage = "/assets/images/default.jpg" %}
-        <img src="{{- postImage | relative_url -}}" alt="" class="blog-roll-image">
+        <a href="{{ post.url | relative_url }}"><img src="{{- postImage | relative_url -}}" alt="" class="blog-roll-image"></a>
       {% endif %}
     </li>
       <!-- Post Title & Link -->

@@ -165,10 +165,8 @@
 
 /* Home Page Content */
 .page-content {
-  padding: 10px;
   flex: 1;
 }
-
 .page-heading {
   @include relative-font-size(2);
 }
@@ -185,7 +183,7 @@
 
 .blog-roll-image {
   // Blog Roll Image
-  width: 110%;
+  width: 100%;
   height: 200px;
   object-fit: cover;
 }
@@ -193,9 +191,9 @@
 .post-link {
   // Post Title
   display: block;
-  color: $brand-color;
   @include relative-font-size(1.5);
   margin-bottom: -5px;
+  margin-top: -10px;
 }
 
 .post-excerpt {
@@ -225,7 +223,7 @@
   letter-spacing: -1px;
   margin-bottom: 10px;
   line-height: 1;
-  margin-top: $spacing-unit;
+  margin-top: $spacing-unit / 2;
 
   @include media-query($on-laptop) {
     @include relative-font-size(2.25);
