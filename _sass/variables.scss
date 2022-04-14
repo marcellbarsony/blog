@@ -1,3 +1,4 @@
+// Charset
 @charset "utf-8";
 
 // Fonts
@@ -16,17 +17,15 @@ $spacing-unit: 10px !default;
 $text-color: #fdfdfd !default;
 
 // Headers
+// https://colorswall.com/palette/2191
 $background-color: #000000 !default;
-$brand-color: #3aa871 !default;
-$brand-color-alternate: #00508f;
+$brand-color: #04ca9f !default;
+$brand-color-alternate: #056d63;
 
 // Grey
 $grey-color: #828282 !default;
 $grey-color-light: lighten($grey-color, 40%) !default;
 $grey-color-dark: darken($grey-color, 25%) !default;
-
-// Table
-$table-text-align: left !default;
 
 // Width of the content area
 $content-width: 800px !default;

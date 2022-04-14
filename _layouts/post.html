@@ -27,14 +27,14 @@
             {{ page.title | escape }}
           </h1>
           <!-- Tag -->
-          <p>
+          <div>
             {% for tag in page.tags %}
               {% capture tag_name %}{{ tag }}{% endcapture %}
               <a href="/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
             {% endfor %}
-          </p>
+          </div>
           <!-- Metadata -->
-          <p class="post-meta">
+          <div class="post-meta">
             <!-- Time -->
             <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
               {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
@@ -44,7 +44,7 @@
             {%- if page.author -%}
                 <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
               {%- endif -%}
-          </p>
+          </div>
         </header>
 
         <!-- Content -->

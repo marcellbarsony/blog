@@ -21,8 +21,7 @@ This is a normal paragraph following a header. GitHub is a code hosting platform
 
 ## Header 2
 
-> This is a blockquote following a header.
->
+> This is a blockquote following a header.<br>
 > When something is important enough, you do it even if the odds are not in your favor.
 
 ### Header 3
@@ -57,7 +56,7 @@ end
 ###### Header 6
 
 | head1        | head two          | three |
-|:-------------|:------------------|:------|
+|:-------------|:-----------------:| -----:|
 | ok           | good swedish fish | nice  |
 | out of stock | good and plenty   | nice  |
 | ok           | good `oreos`      | hmm   |
