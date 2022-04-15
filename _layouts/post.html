@@ -27,7 +27,7 @@
             {{ page.title | escape }}
           </h1>
           <!-- Tag -->
-          <div class="post-tag">
+          <div class="blogpost-tag">
             {% for tag in page.tags %}
               {% capture tag_name %}{{ tag }}{% endcapture %}
               <a href="/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>

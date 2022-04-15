@@ -1,5 +1,5 @@
 .site-footer {
-  border-top: 1px solid;
+  border-top: 1px solid $grey-color;
   padding: $spacing-unit 0;
 }
 
@@ -23,6 +23,10 @@
   fill: #{$grey-color};
   padding-right: 5px;
   vertical-align: text-bottom;
+}
+
+.svg-icon:hover {
+  fill: darken($brand-color, 25%);
 }
 
 /* Social Media Links*/
