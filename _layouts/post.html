@@ -19,7 +19,7 @@
           {%- if page.image -%}
             <img src="{{- page.image | relative_url -}}" alt="" class="post-featured-image">
           {% else %}
-            {% assign postImage = "/assets/images/default.jpg" %}
+            {% assign postImage = "assets/images/default.jpg" %}
             <img src="{{- postImage | relative_url -}}" alt="" class="post-featured-image">
           {% endif %}
           <!-- Title -->
