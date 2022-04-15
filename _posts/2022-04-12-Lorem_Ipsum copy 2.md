@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "Lorem Ipsum"
-date: 2022-04-10 20:50:57 +0200
+date: 2022-04-12 20:50:57 +0200
 categories: HackTheBox
-tags: HackTheBox
+tags: Sampletag1 Sampletag2 Sampletag3 Sampletag4 Sampletag5 Sampletag6 Sampletag7 Sampletag8 Sampletag9
 excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla nisi, gravida eget lacus sed, feugiat rhoncus lectus. Maecenas condimentum rutrum dolor, ut ultrices risus tempor vel. Mauris sed iaculis elit, id efficitur nulla. Morbi vitae purus et eros venenatis hendrerit quis non nibh. Suspendisse est turpis, ultricies et ipsum et, semper tincidunt ex. Phasellus accumsan enim nec arcu mollis ultricies. Suspendisse congue mi diam, ut auctor turpis faucibus ut."
 ---
 
@@ -121,21 +121,8 @@ end
 
 ### Large image
 
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
+![Branching](https://previews.123rf.com/images/dr911/dr9111202/dr911120200027/12377615-a-blue-binary-codes-background.jpg)
 
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
 
 ```
 Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.

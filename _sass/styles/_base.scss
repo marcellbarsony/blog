@@ -61,10 +61,10 @@ figcaption {
 
 /* Lists */
 ul, ol {
+  list-style-type: '> ';
   margin-left: $spacing-unit * 3;
   margin-top: $spacing-unit;
   margin-bottom: $spacing-unit;
-  list-style-image:url('../assets/images/chevron.svg');
 }
 
 /* Headings */
