@@ -33,7 +33,7 @@ layout: default
     <li>
       {% if post.tags.size > 0 %}
         {% for tag in post.tags %}
-          <a class="post-tag" href=""><code><nobr>{{ tag }}</nobr></code>&ensp;</a>
+          <a class="post-tag" href="/blog/tag/{{ tag }}"><code><nobr>{{ tag }}</nobr></code>&ensp;</a>
         {% endfor %}
       {% endif %}
     </li>
