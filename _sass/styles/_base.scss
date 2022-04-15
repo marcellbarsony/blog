@@ -142,7 +142,7 @@ table {
   }
   // Header
   th {
-    background-color: $brand-color;
+    background-color: lighten($brand-color-alternate, 10%);
   }
   // Data
   //td {

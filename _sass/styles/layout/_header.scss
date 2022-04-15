@@ -1,12 +1,11 @@
 /* Site Header*/
 .site-header{
-  border-bottom: 1px solid;
-  border-top: 5px solid $grey-color;
+  border-bottom: 1px solid $grey-color;
+  border-top: 5px solid $grey-color-dark;
   min-height: $spacing-unit * 1.865;
 
   // Positioning context for the mobile navigation icon
   position: relative;
-
 }
 
 .site-title {
