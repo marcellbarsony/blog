@@ -84,3 +84,15 @@
     width: calc(100% - (#{$spacing-unit} / 2));
   }
 }
+
+/* Post Footer */
+
+.post-tag {
+  text-align: center;
+}
+
+.backhome {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}

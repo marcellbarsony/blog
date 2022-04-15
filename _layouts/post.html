@@ -26,13 +26,6 @@
           <h1 class="post-title p-name" itemprop="name headline">
             {{ page.title | escape }}
           </h1>
-          <!-- Tag -->
-          <div class="blogpost-tag">
-            {% for tag in page.tags %}
-              {% capture tag_name %}{{ tag }}{% endcapture %}
-              <a href="/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
-            {% endfor %}
-          </div>
           <!-- Metadata -->
           <div class="post-meta">
             <!-- Time -->
@@ -63,5 +56,7 @@
   </main>
 
 </body>
+
+{%- include footer-post.html -%}
 
 </html>

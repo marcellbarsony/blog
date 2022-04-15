@@ -1,9 +1,9 @@
 title: Your awesome title
 email: marcellbarsony@protonmail.com
-description: >- # this means to ignore newlines until "baseurl:"
+description: >- # Ignore newlines until "baseurl:"
     An open source blog about cyber security with love.
-baseurl: "/blog" # the subpath of your site, e.g. /blog
-url: "https://marcellbarsony.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/blog" # Subpath of the site, e.g. /blog
+url: "https://marcellbarsony.github.io" # Base hostname & protocol for the site, e.g. http://example.com
 twitter_username: marcellbarsony
 github_username: marcellbarsony
 linkedin_username: marcellbarsony

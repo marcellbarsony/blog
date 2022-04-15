@@ -1,0 +1,19 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ "/" | relative_url }}"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="post-tag">
+        {% for tag in page.tags %}
+          {% capture tag_name %}{{ tag }}{% endcapture %}
+          <a href="/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+        {% endfor %}
+      </div>
+      <!-- Home -->
+      <div class="backhome">
+        <a href="/blog/">Home</a>
+      </div>
+    </div>
+  </div>
+
+</footer>
