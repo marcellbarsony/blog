@@ -8,7 +8,10 @@ twitter_username: marcellbarsony
 github_username: marcellbarsony
 linkedin_username: marcellbarsony
 author: Marcell Barsony
+paginate: 3
+paginate_path: "/page:num/"
 
 jobtitle: IT Security Ops Engineer
 plugins:
   - jekyll-feed
+  - jekyll-paginate
