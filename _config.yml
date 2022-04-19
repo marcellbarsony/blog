@@ -1,13 +1,14 @@
 title: Page Title
 email: marcellbarsony@protonmail.com
 description: >- # Ignore newlines until "baseurl:"
-    An open source blog about cyber security with love.
+    Open source cyber security blog with love.
 baseurl: "/blog" # Subpath of the site, e.g. /blog
 url: "https://marcellbarsony.github.io" # Base hostname & protocol for the site, e.g. http://example.com
 twitter_username: marcellbarsony
 github_username: marcellbarsony
 linkedin_username: marcellbarsony
 author: Marcell Barsony
-jobtitle: IT Security Engineer
+
+jobtitle: IT Security Ops Engineer
 plugins:
   - jekyll-feed
