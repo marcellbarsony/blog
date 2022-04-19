@@ -36,6 +36,11 @@
   }
 }
 
+/* Job Title */
+.jobtitle {
+  color: darken($grey-color, 20%);
+}
+
 .footer-col-wrapper {
   @include relative-font-size(0.9375);
   color: $grey-color;
