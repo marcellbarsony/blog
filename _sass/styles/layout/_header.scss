@@ -1,7 +1,7 @@
 /* Site Header*/
 .site-header{
-  border-bottom: 1px solid $grey-color;
-  border-top: 5px solid darken($grey-color-dark, 10%);
+  border-bottom: 1px solid darken($grey-color, 10%);
+  border-top: 5px solid darken($grey-color-dark, 15%);
   //min-height: $spacing-unit * 1.865;
   height: $spacing-unit * 5;
 

@@ -3,7 +3,7 @@ layout: post
 title: "Lorem Ipsum"
 date: 2022-04-12 20:50:57 +0200
 categories: HackTheBox
-tags: Sampletag1 Sampletag2 Sampletag3 Sampletag4 Sampletag5 Sampletag6 Sampletag7 Sampletag8 Sampletag9
+tags: ["Sampletag1", "Sampletag2", "Sampletag3"]
 excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla nisi, gravida eget lacus sed, feugiat rhoncus lectus. Maecenas condimentum rutrum dolor, ut ultrices risus tempor vel. Mauris sed iaculis elit, id efficitur nulla. Morbi vitae purus et eros venenatis hendrerit quis non nibh. Suspendisse est turpis, ultricies et ipsum et, semper tincidunt ex. Phasellus accumsan enim nec arcu mollis ultricies. Suspendisse congue mi diam, ut auctor turpis faucibus ut."
 ---
 

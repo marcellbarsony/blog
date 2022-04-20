@@ -4,9 +4,11 @@
   <div class="wrapper">
     <div class="footer-col-wrapper">
       <div class="post-tag-footer">
+        <!-- Tag -->
         {% for tag in page.tags %}
           {% capture tag_name %}{{ tag }}{% endcapture %}
-          <a href="/blog/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+          <a href="javascrip:void(0);"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>
+          <!--<a href="/blog/tag/{{ tag_name }}"><code><nobr>{{ tag_name }}</nobr></code>&nbsp;</a>-->
         {% endfor %}
       </div>
       <!-- Home -->
