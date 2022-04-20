@@ -1,17 +1,25 @@
+# Site
 title: Page Title
-email: marcellbarsony@protonmail.com
 description: >- # Ignore newlines until "baseurl:"
     Open source cyber security blog with love.
 baseurl: "/blog" # Subpath of the site, e.g. /blog
 url: "https://marcellbarsony.github.io" # Base hostname & protocol for the site, e.g. http://example.com
-twitter_username: marcellbarsony
-github_username: marcellbarsony
-linkedin_username: marcellbarsony
-author: Marcell Barsony
+
+# Paginate
 paginate: 3
 paginate_path: "/page:num/"
 
+# Author
+author: Marcell Barsony
 jobtitle: IT Security Ops Engineer
+email: marcellbarsony@protonmail.com
+
+# Social media
+twitter_username: marcellbarsony
+github_username: marcellbarsony
+linkedin_username: marcellbarsony
+
+# Plugins
 plugins:
   - jekyll-feed
   - jekyll-paginate
