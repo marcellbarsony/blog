@@ -61,28 +61,28 @@ layout: default
   {% if paginator.previous_page %}
     <a class="pagination-item" href="/blog/"><span class="sr-only">&laquo; First</span></a>
   {% else %}
-    <span>&laquo; First</span>
+    <span class="pagination-item">&laquo; First</span>
   {% endif %}
 
 <!-- Previous Page -->
   {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
+    <a class="pagination-item" href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
   {% else %}
-    <span>&laquo; Prev</span>
+    <span class="pagination-item">&laquo; Prev</span>
   {% endif %}
 
 <!-- Next Page -->
   {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+    <a class="pagination-item" href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
   {% else %}
-    <span>Next &raquo;</span>
+    <span class="pagination-item">Next &raquo;</span>
   {% endif %}
 
 <!-- Last Page -->
   {% if paginator.next_page %}
     <a class="pagination-item" href="/blog/page{{ paginator.total_pages }}/"><span class="sr-only">Last &raquo;</span></a>
   {% else %}
-    <span>Last &raquo;</span>
+    <span class="pagination-item">Last &raquo;</span>
   {% endif %}
 </div>
 {% endif %}
