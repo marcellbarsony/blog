@@ -140,8 +140,8 @@ table {
   width: 100%;
   // Rows
   tr {
-    &:nth-child(even) {
-      background-color: lighten($background-color, 20%);
+    &:nth-child(odd) {
+      background-color: lighten($background-color, 15%);
     }
   }
   // Header
