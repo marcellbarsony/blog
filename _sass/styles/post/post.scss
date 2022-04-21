@@ -1,0 +1,81 @@
+/* Posts */
+.post-header {
+  // Post Header
+  margin-top: $spacing-unit;
+  margin-bottom: $spacing-unit;
+}
+
+// Post Featured Image
+.post-featured-image {
+  // Featured Image
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+// Post Title
+.post-title {
+  @include relative-font-size(1.5);
+  letter-spacing: -1px;
+  margin-bottom: 5px;
+  line-height: 1;
+  margin-top: $spacing-unit / 2;
+
+  @include media-query($on-laptop) {
+    @include relative-font-size(2.25);
+  }
+}
+
+// Post Tag
+.post-tag {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-left: 2px;
+  margin-right: -10px;
+}
+
+.blogpost-tag {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-left: 2px;
+}
+
+// Post Date
+.post-meta {
+  font-size: $small-font-size;
+  color: $grey-color;
+  margin-bottom: 0px;
+  margin-left: 2px;
+}
+
+.post-content {
+  margin-bottom: $spacing-unit;
+
+  h2 {
+    @include relative-font-size(2);
+
+    @include media-query($on-laptop) {
+      @include relative-font-size(1.75);
+    }
+  }
+
+  h3 {
+    @include relative-font-size(1.625);
+
+    @include media-query($on-laptop) {
+      @include relative-font-size(1.375);
+    }
+  }
+
+  h4 {
+    @include relative-font-size(1.25);
+
+    @include media-query($on-laptop) {
+      @include relative-font-size(1.125);
+    }
+  }
+}
