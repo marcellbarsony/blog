@@ -1,4 +1,8 @@
+// Header & Footer
 @import "styles/layout/header", "styles/layout/footer";
+
+// Pagination
+@import "styles/pagination/pagination";
 
 /* Home Page Layout */
 .page-content {
@@ -93,17 +97,6 @@
   color: $grey-color;
   margin-bottom: 0px;
   margin-left: 2px;
-}
-
-// Pagination
-.pagination {
-  color: $grey-color;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.pagination-item {
-  margin-left: 10px;
 }
 
 .post-content {

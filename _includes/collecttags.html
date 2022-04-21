@@ -4,6 +4,7 @@
   {% assign ttags = post.tags | join:'|' | append:'|' %}
   {% assign rawtags = rawtags | append:ttags %}
 {% endfor %}
+
 {% assign rawtags = rawtags | split:'|' | sort %}
 
 {% assign site.tags = "" %}

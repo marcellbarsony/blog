@@ -19,7 +19,7 @@ $text-color: #fdfdfd !default;
 // Headers
 // https://colorswall.com/palette/2191
 $background-color: #000000 !default;
-$brand-color: #08C097 !default; 
+$brand-color: #08C097 !default;
 $brand-color-alternate: #056d63;
 
 // Grey
@@ -52,4 +52,4 @@ $on-laptop: 800px !default;
 }
 
 // Import partials.
-@import "styles/base", "styles/layout", "styles/syntax-highlighting";
+@import "styles/base", "styles/layout", "styles/syntax/syntax-highlighting";
