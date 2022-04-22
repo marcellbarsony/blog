@@ -69,9 +69,9 @@
     // Triggered
     input:checked ~ .trigger {
       display: block;
-      width: 100px;
-      height: 200px;
-      background-color: blue;
+      width: 200px;
+      height: 400px;
+      background-color: darken($grey-color-dark, 20%);
     }
 
     // Menu items
