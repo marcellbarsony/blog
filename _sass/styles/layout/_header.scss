@@ -43,6 +43,7 @@
     }
   }
 
+// Menu icon
 .menu-icon {
     display: block;
     float: right;
@@ -65,14 +66,17 @@
       display: none;
     }
 
+    // Triggered
     input:checked ~ .trigger {
       display: block;
-      background-color: green;
-      padding-bottom: 5px;
-      width: 100%;
+      width: 100px;
+      height: 200px;
+      background-color: blue;
     }
 
+    // Menu items
     .page-link {
+      float: right;
       display: block;
       padding: 5px 10px;
 

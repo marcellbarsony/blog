@@ -20,6 +20,7 @@
   margin-bottom: 5px;
   line-height: 1;
   margin-top: $spacing-unit / 2;
+  color: $brand-color;
 
   @include media-query($on-laptop) {
     @include relative-font-size(2.25);
@@ -50,32 +51,4 @@
   color: $grey-color;
   margin-bottom: 0px;
   margin-left: 2px;
-}
-
-.post-content {
-  margin-bottom: $spacing-unit;
-
-  h2 {
-    @include relative-font-size(2);
-
-    @include media-query($on-laptop) {
-      @include relative-font-size(1.75);
-    }
-  }
-
-  h3 {
-    @include relative-font-size(1.625);
-
-    @include media-query($on-laptop) {
-      @include relative-font-size(1.375);
-    }
-  }
-
-  h4 {
-    @include relative-font-size(1.25);
-
-    @include media-query($on-laptop) {
-      @include relative-font-size(1.125);
-    }
-  }
 }
