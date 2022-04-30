@@ -15,10 +15,16 @@ excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla ni
 
 ### 64-bit WEP
 
-64-bit WEP uses a **40-bit key** (network password), that is concatenated to the **[Initialization Vector (IV)](https://en.wikipedia.org/wiki/Initialization_vector)**.
+### Key
+
+Initially, 64-bit WEP used a **40-bit key** (network password), later, 
+
+that is concatenated to the **[Initialization Vector (IV)](https://en.wikipedia.org/wiki/Initialization_vector)**.
 
 The **40-bit key** is entered as a string of 10 [hexadecimal](https://en.wikipedia.org/wiki/Hexadecimal) characters (0-9 & A-F):<br>
-Each character represents 4 bits (10 x 4 bits = 40 bits).
+Each character represents 4 bits (10 x 4 bits = 40-bit key).
+
+#### Initialization Vector
 
 The **Initialization Vector** is a 24-bit random generated number that should be unique in every packet.<br>
 The range of unsigned integers that can be represented in 24 bits is 0 to 16,777,215.
@@ -28,6 +34,8 @@ The range of unsigned integers that can be represented in 24 bits is 0 to 16,777
 The **Initialization Vector** is concatenated to the **key**, to form the **key stream**.
 
 #### Encryption
+
+The encryption mechanism used in WEP is a symmetric cipher; this means that the key that encrypts the data is the same key that will decrypt the data.
 
 The **key stream** is used to encrypt the data that is bing sent through the network.
 
