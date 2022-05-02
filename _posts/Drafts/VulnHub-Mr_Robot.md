@@ -24,6 +24,10 @@ The **Kali** machine received the IP address `10.38.1.110`.
 
 Launching **Mr. Robot**, we're presented with a login screen that cannot be bypassed as the login credentials aren't known.
 
+![alt text](https://www.dropbox.com/s/rftjad3vikt9yyp/mr_robot.jpg?dl=1)
+
+[![asciicast](https://asciinema.org/a/14.png)](https://asciinema.org/a/14)
+
 ## Enumeration
 
 ### Nmap
