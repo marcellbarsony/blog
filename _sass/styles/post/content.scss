@@ -19,11 +19,22 @@ body {
 
 // Set `margin-bottom` to maintain vertical rhythm
 h1,
+%vertical-rhythm {
+  margin-bottom: $spacing-unit * 2;
+  margin-top: $spacing-unit * 4;
+  text-align: center;
+}
+
 h2,
 h3,
 h4,
 h5,
 h6
+%vertical-rhythm {
+  margin-bottom: $spacing-unit;
+  margin-top: $spacing-unit;
+}
+
 blockquote,
 pre,
 ul,
@@ -33,6 +44,8 @@ figure,
 %vertical-rhythm {
   margin-bottom: $spacing-unit;
   margin-top: $spacing-unit;
+  text-align: start;
+  ;
 }
 
 //h1 {
