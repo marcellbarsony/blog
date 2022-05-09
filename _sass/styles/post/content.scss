@@ -19,22 +19,11 @@ body {
 
 // Set `margin-bottom` to maintain vertical rhythm
 h1,
-%vertical-rhythm {
-  margin-bottom: $spacing-unit * 2;
-  margin-top: $spacing-unit * 4;
-  text-align: center;
-}
-
 h2,
 h3,
 h4,
 h5,
-h6
-%vertical-rhythm {
-  margin-bottom: $spacing-unit;
-  margin-top: $spacing-unit;
-}
-
+h6,
 blockquote,
 pre,
 ul,
@@ -45,7 +34,6 @@ figure,
   margin-bottom: $spacing-unit;
   margin-top: $spacing-unit;
   text-align: start;
-  ;
 }
 
 //h1 {
@@ -161,10 +149,6 @@ table {
   th {
     background-color: lighten($brand-color-alternate, 10%);
   }
-  // Data
-//td {
-//  border: 1px solid $grey-color-light;
-//}
   // Header & Data
   th, td {
     padding: ($spacing-unit / 3) ($spacing-unit / 2);
