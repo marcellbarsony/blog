@@ -11,7 +11,7 @@ excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nulla ni
 [Mr. Robot](https://www.imdb.com/title/tt4158110/) is one of the greatest TV shows ever made, and it is the most authentic representation of actual real life hacking to this day.
 [Mr-Robot: 1](https://www.vulnhub.com/entry/mr-robot-1,151/) has 3 flags to find.
 
-# Preparation
+## Preparation & Enumeration
 
 The virtual machines are placed onto the same isolated internal network where they can only communicate with each other.<br>
 On the isolated internal network, the VirtualBox DHCP server assigns IP addresses to the machines:
@@ -21,8 +21,6 @@ marci@arch$ vboxmanage dhcpserver add --network=intnet --server-ip=10.38.1.1 --l
 ```
 
 The **Kali** machine received the IP address `10.38.1.110`.
-
-# Enumeration
 
 Launching **Mr. Robot**, we're presented with a login screen that cannot be bypassed as the login credentials aren't known.
 
@@ -64,7 +62,7 @@ Looking up `10.38.1.111` in a web browser, we're presented with the clone of the
 
 Checking the displayed commands won't get us anywhere close to the first flag.
 
-# Flag 1
+## Flag One
 
 ### Nikto
 
@@ -127,7 +125,7 @@ kali@kali$ cat key-1-of-3.txt
 073403c8a58a1f80d943455fb30724b9
 ```
 
-# Flag 2
+## Flag Two
 
 As SSL isn't enabled on the WordPress login page, it may be brute forced with the previously acquired dictionary file.
 
@@ -393,7 +391,7 @@ robot@linux:~$ cat key-2-of-3.txt
 822c73956184f694993bede3eb39f959
 ```
 
-# Flag 3
+## Flag Three
 
 Given that there is only one flag left, and we have not got root access to this box yet, this would have to be the next logical step.
 
@@ -444,7 +442,7 @@ robot@linux:~$ find / -perm -4000 2>/dev/null
   </tr>
   <tr>
     <td>2>/dev/null</td>
-    <td>Redirect STDERR to null device: throw away error messages</td>
+    <td>Redirect STDERR to null device to throw away error messages</td>
   </tr>
 </table>
 
@@ -499,9 +497,9 @@ drwx------  2 root root 4096 Nov 13  2015 .cache
 04787ddef27c3dee1ee161b21670b4e4
 ```
 
-# Summary
+## Summary
 
-Mr. Robot is a great introduction to test our basic web application penetration testing skills: reconnaissance with Nmap, POST request capturing with Burp Suite, password cracking using bute force dictionary attack, establishing a reverse shell connection, and escalating privileges to gain root access.
+Mr. Robot is a great introduction to test our basic web application penetration testing skills: reconnaissance with Nmap, http POST request capturing with Burp Suite, password cracking using bute force dictionary attack, establishing a reverse shell connection, and escalating privileges to gain root access.
 
 ```sh
 cat key-1-of-3.txt
