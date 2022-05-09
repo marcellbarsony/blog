@@ -36,10 +36,6 @@ figure,
   text-align: start;
 }
 
-//h1 {
-//   font-size: 35px;
-//}
-
 // `main` element
 main {
   display: block; // Default value of `display` of `main` element is 'inline' in IE 11.
@@ -98,8 +94,8 @@ blockquote {
   color: $grey-color;
   font-style: italic;
   letter-spacing: -1px;
-  margin-top: $spacing-unit;
-  margin-bottom: $spacing-unit;
+  margin-top: $spacing-unit * 2;
+  margin-bottom: $spacing-unit * 2;
   margin-left: $spacing-unit  * 2;
   margin-right: $spacing-unit  * 2;
   padding-left: $spacing-unit * 2;
@@ -113,11 +109,12 @@ blockquote {
 // Code formatting
 pre, code {
   @include relative-font-size(0.9375);
-  background-color: lighten($background-color, 10%);
+  background-color: lighten($background-color, 15%);
 }
 
 code {
   padding: 1px 5px;
+  background: lighten($background-color, 15%);
 }
 
 pre {
@@ -143,6 +140,9 @@ table {
   tr {
     &:nth-child(odd) {
       background-color: lighten($background-color, 15%);
+    }
+    &:nth-child(even) {
+      background-color: lighten($background-color, 10%);
     }
   }
   // Header
